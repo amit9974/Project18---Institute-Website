@@ -1,0 +1,49 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+{% load static %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>Courses</li>
+        </ol>
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+        <div class="col-lg-12 entries">
+            {% for course in course %}
+            <article class="entry">
+
+              <div class="entry-img">
+                
+              </div>
+              <h2 class="entry-title">
+                <a href="">{{course.name}}</a><br>
+                <img src="{{course.image.url}}" alt="" class="img-fluid">
+              </h2>
+              <div class="entry-content">
+                <p>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum praesentium eaque quod voluptatum laudantium. Est, explicabo impedit? Est delectus corporis temporibus! Necessitatibus, repellendus sapiente aliquam vero sint aperiam culpa animi.
+                  Distinctio laudantium numquam quisquam exercitationem, quo eligendi ratione at. Debitis natus distinctio facere deleniti porro rerum, aut nihil amet at, corrupti ipsum, mollitia saepe iure provident officia earum. Accusamus, sunt.
+                  Eius quaerat veniam placeat ipsam. Odio id consequatur, facilis veniam unde reiciendis dolorum, exercitationem dolorem eveniet maiores rerum, similique vel fugit earum voluptatem. Unde, porro est explicabo minus quasi recusandae!
+                  Id provident quam ab illum exercitationem amet similique maiores iure totam ducimus minima dolores, at numquam molestias dolorem! Voluptatum beatae sequi, alias iusto incidunt suscipit harum amet voluptates possimus saepe!
+                </p>
+              </div>
+
+            </article><!-- End blog entry -->
+            {% endfor %}
+        </div><!-- End blog entries list -->
+      </div>
+    </section><!-- End Blog Section -->
+
+  </main><!-- End #main -->
+
+
+{% endblock %}
