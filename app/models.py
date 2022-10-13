@@ -1,6 +1,3 @@
-from dataclasses import fields
-from distutils.command.upload import upload
-import imp
 from django.db import models
 from django import forms
 from django.contrib.auth.models import User
@@ -16,7 +13,6 @@ class NewUserModel(UserCreationForm):
         model = User
         fields = ('username','email','password1', 'password2')
 
-
     def __init__(self, *args, **kwargs) -> None:
         super(NewUserModel, self).__init__(*args, **kwargs)
 
@@ -25,16 +21,13 @@ class NewUserModel(UserCreationForm):
         self.fields['password1'].widget.attrs['placeholder'] = 'Create Password'
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
 
-
     def save(self, commit=True):
         user = super(NewUserModel, self).save(commit=False)
         user.email = self.cleaned_data['email']
 
         if commit:
             user.save()
-        
         return user
-
 
     def clean_email(self):
         if User.objects.filter(email=self.cleaned_data['email']).exists():
@@ -42,8 +35,6 @@ class NewUserModel(UserCreationForm):
         return self.cleaned_data['email']
 
     
-
-
 class CourseCategory(models.Model):
     name = models.CharField(max_length=100)
 
@@ -58,8 +49,6 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
-
-        
 
 class PlacementPartner(models.Model):
     name = models.CharField(max_length=100)
@@ -85,7 +74,6 @@ class Faculty_Profile(models.Model):
     def __str__(self):
         return self.name
 
-
 class Contact(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
@@ -94,4 +82,28 @@ class Contact(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+"""Blog Categories"""
+class BlogCategories(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.title
+
+"""Tags"""
+class Tags(models.Model):
+    title = models.CharField(max_length=100) 
+
+    def __str__(self) -> str:
+        return self.title
+
+"""Posts"""
+class Posts(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100, null=True)
+    post = models.TextField(max_length=500)
+    img = models.ImageField(upload_to='media/post', null=True)
+    created_at = models.DateField(auto_now_add=True, null=True)
+    def __str__(self) -> str:
+        return self.title
 

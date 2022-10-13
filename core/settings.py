@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jj!2avdz*o3rul34vaua4km!&n+)8qn2gxi6b7(g*093yn^#9x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['techinfotech.herokuapp.com']
-
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['techinfotech.herokuapp.com']
 
 # Application definition
 
@@ -38,10 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'crispy_forms',
+    'django_bootstrap5',
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 MIDDLEWARE = [

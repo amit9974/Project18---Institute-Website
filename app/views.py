@@ -1,6 +1,6 @@
 from multiprocessing import context
 from unicodedata import category
-from .models import Course, CourseCategory, Faculty_Profile, Contact
+from .models import BlogCategories, Course, CourseCategory, Faculty_Profile, Contact, Posts, Tags
 from django.shortcuts import redirect, render
 from .models import NewUserModel
 from django.contrib.auth import authenticate, login
@@ -21,6 +21,8 @@ def HomePage(request):
 
 """Add New User"""
 def Register(request):
+    category = CourseCategory.objects.all()
+    course = Course.objects.all()
     if request.method == 'POST':
         form = NewUserModel(request.POST)
         if form.is_valid():
@@ -35,6 +37,8 @@ def Register(request):
         form = NewUserModel()
     context={
         'form':form,
+        'category':category,
+        'course':course,
     }
     return render(request, 'registration/register.html', context)
 
@@ -88,11 +92,31 @@ def AboutPage(request):
 
 """Blog Page"""
 def blogPage(request):
-    return render(request, 'blog/blog.html')
+    category = CourseCategory.objects.all()
+    course = Course.objects.all()
+    cat = BlogCategories.objects.all()
+    post = Posts.objects.all()[0:6]
+    tag = Tags.objects.all()
+    context = {
+        'category':category,
+        'course':course,
+        'cat':cat,
+        'post':post,
+        'tag':tag,
+    }
+    return render(request, 'blog/blog.html', context)
 
 def BlogDetail(request):
+    category = CourseCategory.objects.all()
+    course = Course.objects.all()
+    cat = BlogCategories.objects.all()
+    context = {
+        'category':category,
+        'course':course,
+        'cat':cat,
+    }
     # blog = Course.objects.filter(id=id)
     # ctx={
     #     'blog':blog,
     # }
-    return render(request, 'blog/blog_detail.html')
+    return render(request, 'blog/blog_detail.html', context)

@@ -21,3 +21,8 @@ admin.site.register(FAQ)
 admin.site.register(Faculty_Profile)
 admin.site.register(PlacementPartner)
 admin.site.register(Contact)
+admin.site.register(Posts)
+admin.site.register(BlogCategories)
+admin.site.register(Tags)
+
+
