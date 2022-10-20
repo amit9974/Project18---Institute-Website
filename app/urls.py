@@ -5,8 +5,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.HomePage, name='homepage'),
-    path('register/', views.Register, name='register'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', views.UserRegisterView, name='register'),
+    path('login/', views.UserLoginView, name='login'),
+    path('logout/', views.UserLogoutView, name='logout'),
     path('contact/', views.ContactPage, name='contact'),
     path('course_details/<id>/',views.DetailsPage, name='course_details'),
     path('about/', views.AboutPage, name='about'),

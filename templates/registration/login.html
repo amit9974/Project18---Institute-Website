@@ -34,6 +34,11 @@ height: 100%;
             <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
               <h1 class="lead fw-normal mb-0 me-3">Login to your account</h1>
             </div>
+            {% if messages %}
+            {% for msg in messages %}
+            <p class='alert alert-danger'>{{msg}}</p>
+            {% endfor %}
+            {% endif %}
             <strong><hr></strong>
             <!-- Email input -->
             {% bootstrap_form form %}

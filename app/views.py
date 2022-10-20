@@ -1,10 +1,11 @@
-from multiprocessing import context
-from unicodedata import category
+from multiprocessing import reduction
+from operator import imod
 from .models import BlogCategories, Course, CourseCategory, Faculty_Profile, Contact, Posts, Tags
 from django.shortcuts import redirect, render
-from .models import NewUserModel
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .forms import UserLoginForm, UserRegisterForm
+from django.contrib.auth.models import User
 # Create your views here.
 
 """Homepage"""
@@ -19,28 +20,46 @@ def HomePage(request):
     }
     return render(request, "index.html", context)
 
+
 """Add New User"""
-def Register(request):
-    category = CourseCategory.objects.all()
-    course = Course.objects.all()
-    if request.method == 'POST':
-        form = NewUserModel(request.POST)
-        if form.is_valid():
-            new_user = form.save()
-            new_user = authenticate(
-                username = form.cleaned_data['username'],
-                password = form.cleaned_data['password1']
-            )
-            login(request, new_user)
-            return redirect('hompage')
-    else:
-        form = NewUserModel()
-    context={
-        'form':form,
-        'category':category,
-        'course':course,
-    }
-    return render(request, 'registration/register.html', context)
+def UserRegisterView(request):
+    form = UserRegisterForm(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data.get('username')
+        email = form.cleaned_data.get('email')
+        password1 = form.cleaned_data.get('password1')
+        password2 = form.cleaned_data.get('password2')
+
+        if password1 == password2:
+            user = User.objects.create_user(username, email, password1)
+            user.save()
+            messages.success(request, 'Registration Success')
+            return redirect('login')
+        else:
+            messages.error(request, 'Username or Password is incorrect')
+    ctx = {'form':form, 'title':'Registration'}
+    return render(request, 'registration/register.html', ctx)
+
+
+def UserLoginView(request):
+    form = UserLoginForm(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Login Success')
+            return redirect('/')
+        else:
+            messages.error(request, 'Wrong Credentials')
+    ctx ={'form':form, 'title':'Login'}
+    return render(request, 'registration/login.html', ctx)
+
+def UserLogoutView(request):
+    logout(request)
+    return redirect('/')
+    
 
 """Contact Page"""
 def ContactPage(request):

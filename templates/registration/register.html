@@ -34,12 +34,17 @@ height: 100%;
             <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
               <h1 class="lead fw-normal mb-0 me-3">Create new account</h1>
             </div>
+            {% if messages %}
+            {% for msg in messages %}
+            <p class='alert alert-success'>{{msg}}</p>
+            {% endfor %}
+            {% endif %}
             <strong><hr></strong>
             <!-- Email input -->
             {% bootstrap_form form %}
             {% bootstrap_button button_type="submit" content="Register" %}
             <br><br>
-            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="{% url 'login' %}" class="link-danger">Register</a></p>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Already have account? <a href="{% url 'login' %}" class="link-danger">Login Now</a></p>
             </div>
           </form>
         </div>
