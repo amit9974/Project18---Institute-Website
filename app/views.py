@@ -52,7 +52,7 @@ def UserLoginView(request):
             messages.success(request, 'Login Success')
             return redirect('/')
         else:
-            messages.error(request, 'Wrong Credentials')
+            messages.error(request, 'Wrong Credentials !')
     ctx ={'form':form, 'title':'Login'}
     return render(request, 'registration/login.html', ctx)
 
