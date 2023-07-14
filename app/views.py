@@ -1,6 +1,6 @@
 from multiprocessing import reduction
 from operator import imod
-from .models import BlogCategories, Course, CourseCategory, Faculty_Profile, Contact, Posts, Tags
+from .models import BlogCategories, Course, CourseCategory, Faculty_Profile, Contact, Posts, Tags, Certificate
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -139,3 +139,12 @@ def BlogDetail(request):
     #     'blog':blog,
     # }
     return render(request, 'blog/blog_detail.html', context)
+
+
+
+def VerifyCert(request, roll_number):
+    cert = Certificate.objects.filter(roll_number=roll_number)
+    ctx={
+        'cert':cert
+    }
+    return render(request, 'certficate_verify/verify.html',ctx)

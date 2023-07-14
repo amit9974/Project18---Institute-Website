@@ -78,3 +78,11 @@ class Posts(models.Model):
     def __str__(self) -> str:
         return self.title
 
+
+class Certificate(models.Model):
+    roll_number = models.CharField(max_length=10)
+    date_of_birth = models.DateField()
+    certificate = models.FileField(upload_to='Certificate/')
+
+    def __str__(self):
+        return self.roll_number

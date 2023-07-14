@@ -13,6 +13,7 @@ urlpatterns = [
     path('about/', views.AboutPage, name='about'),
     path('blog/', views.blogPage, name='blog'),
     path('blog_detail/', views.BlogDetail, name='blog_detail'),
+    path('verify/<roll_number>/', views.VerifyCert, name='verify'),
 ]   
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -25,4 +25,4 @@ admin.site.register(Posts)
 admin.site.register(BlogCategories)
 admin.site.register(Tags)
 
-
+admin.site.register(Certificate)
